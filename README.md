@@ -2,8 +2,8 @@
 
 ## This is a simple docker-compose demo that spins up four containers: 
 
-* [IRIS-A](./docker-compose.yml)
-* [IRIS-B](./docker-compose.yml)
+* [Failover MIRROR Member IRIS-A](./docker-compose.yml)
+* [Failover MIRROR Member IRIS-B](./docker-compose.yml)
 * [InterSystems Arbiter](./docker-compose.yml)
 * [InterSystems Web Gateway](./docker-compose.yml)
 
