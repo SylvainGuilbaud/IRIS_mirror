@@ -1,10 +1,11 @@
-# Example of using 3 IRIS Community instances (EM, CD, preview)
+# Example of using IRIS MIRROR
 
-## This is a simple docker-compose demo that spins up three containers: 
+## This is a simple docker-compose demo that spins up four containers: 
 
-* [IRIS community EXTENDED MAINTENANCE](./docker-compose.yml)
-* [IRIS community CONTINUOUS DELIVERY](./docker-compose.yml)
-* [IRIS community DEVELOPER PREVIEW](./docker-compose.yml)
+* [IRIS-A](./docker-compose.yml)
+* [IRIS-B](./docker-compose.yml)
+* [InterSystems Arbiter](./docker-compose.yml)
+* [InterSystems Web Gateway](./docker-compose.yml)
 
 ## How to run it
 
