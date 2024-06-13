@@ -1,0 +1,77 @@
+networks:
+  iris-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv4: "true"
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/16
+services:
+  iris-a:
+    image: ${IMAGE_IRIS_EM} 
+    init: true
+    container_name: ${IRIS_MIRRORED_MEMBER_ONE}
+    hostname: ${IRIS_MIRRORED_MEMBER_ONE}
+    environment:
+      - ISC_DATA_DIRECTORY=/IRIS/IRIS-A
+      - ISC_CPF_MERGE_FILE=/IRIS/mirrorPrimary.conf
+    volumes:
+    - type: bind
+      source: ./IRIS
+      target: /IRIS
+    command: --key /IRIS/iris.key -a /IRIS/configure.sh
+    ports:
+      - 9001:1972
+    networks:
+      iris-net:
+        ipv4_address: 10.0.0.11
+
+  iris-b:
+    image: ${IMAGE_IRIS_EM} 
+    init: true
+    container_name: ${IRIS_MIRRORED_MEMBER_TWO}
+    hostname: ${IRIS_MIRRORED_MEMBER_TWO}
+    environment:
+      - ISC_DATA_DIRECTORY=/IRIS/IRIS-B
+      - ISC_CPF_MERGE_FILE=/IRIS/mirrorBackup.conf
+    volumes:
+    - type: bind
+      source: ./IRIS
+      target: /IRIS
+    command: --key /IRIS/iris.key -a /IRIS/configure.sh
+    ports:
+      - 9002:1972
+    networks:
+      iris-net:
+        ipv4_address: 10.0.0.12
+
+  arbiter:
+    image: ${ARBITER}
+    container_name: ${ARBITER_NAME}
+    hostname: ${ARBITER_NAME}
+    command: ["-p 2188"]
+    networks:
+      iris-net:
+        ipv4_address: 10.0.0.13
+    #ports:
+      #- "2188:2188"
+      # this setting is not needed as communication is happening within the container network; no host publishing needed.
+  webgateway:
+    image: ${WEBGATEWAY}
+    init: true
+    container_name: ${WEBGATEWAY_NAME}
+    hostname: ${WEBGATEWAY_NAME}
+    ports:
+    - ${WEBGATEWAY_PORT}:80
+    - 8443:443
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway/CSP.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway
+    networks:
+      iris-net:
+        ipv4_address: 10.0.0.10
