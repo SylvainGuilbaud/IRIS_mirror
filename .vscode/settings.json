@@ -13,7 +13,7 @@
             "IRIS METRICS": "http://${host}:${port}/api/monitor/metrics",
             "IRIS-A METRICS": "http://${host}:${port}/iris-a/api/monitor/metrics",
             "IRIS-B METRICS": "http://${host}:${port}/iris-b/api/monitor/metrics",
-            "IRIS-A Management Portal": "http://l${host}:${port}/iris-a/csp/sys/UtilHome.csp",
+            "IRIS-A Management Portal": "http://${host}:${port}/iris-a/csp/sys/UtilHome.csp",
             "IRIS-B Management Portal": "http://${host}:${port}/iris-b/csp/sys/UtilHome.csp",
             "Web Gateway Management": "http://${host}:${port}/csp/bin/Systems/Module.cxw",
             "Class Reference": "http://${host}:${port}/csp/documatic/%25CSP.Documatic.cls?LIBRARY=USER"
